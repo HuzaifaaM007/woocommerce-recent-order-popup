@@ -1,0 +1,29 @@
+.wcrop-popup {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 300px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 9999;
+}
+
+.wcrop-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wcrop-popup ul {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.wcrop-popup small {
+    color: #888;
+}
