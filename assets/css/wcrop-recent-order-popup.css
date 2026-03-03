@@ -6,6 +6,7 @@
     background: #ffffff;
     border: 1px solid #ddd;
     padding: 15px;
+    padding-top: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     border-radius: 8px;
     opacity: 0;
@@ -26,4 +27,22 @@
 
 .wcrop-popup small {
     color: #888;
+}
+
+.wcrop-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    color: #aaa;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.wcrop-popup-close:hover {
+    color: #333;
 }

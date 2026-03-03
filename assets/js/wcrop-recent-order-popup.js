@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let lastOrderId = 0;
+    let popupsDisabled = false; 
 
     function fetchRecentOrders() {
+        if (popupsDisabled) return; 
 
         fetch(wcrop_recent_orders.ajax_url, {
             method: "POST",
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 orders.forEach((order, index) => {
                     setTimeout(() => {
-                        showPopup(order);
+                        if (!popupsDisabled) showPopup(order);
                     }, index * 6000);
                 });
 
@@ -38,6 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             })
             .catch(error => console.error("AJAX Error:", error));
+    }
+
+    function disableAllPopups() {
+        popupsDisabled = true;
+        document.querySelectorAll(".wcrop-popup").forEach(p => p.remove());
     }
 
     function showPopup(order) {
@@ -51,10 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         popup.innerHTML = `
+            <button class="wcrop-popup-close" aria-label="Dismiss and disable alerts">&times;</button>
             <strong>${order.customer}</strong> just placed an order!
             <ul>${itemsHtml}</ul>
             <small>${order.order_date}</small>
         `;
+
+        popup.querySelector(".wcrop-popup-close").addEventListener("click", () => {
+            disableAllPopups();
+        });
 
         document.body.appendChild(popup);
 
