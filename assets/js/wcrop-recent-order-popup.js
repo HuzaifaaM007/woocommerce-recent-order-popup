@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let lastOrderId = 0;
-    let popupsDisabled = false; 
+    let popupsDisabled = false;
 
     function fetchRecentOrders() {
-        if (popupsDisabled) return; 
+        if (popupsDisabled) return;
 
         fetch(wcrop_recent_orders.ajax_url, {
             method: "POST",
@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
+
+
+                console.log(data);
 
                 if (!data.success) return;
 
@@ -39,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }, orders.length * 6000);
 
             })
-            .catch(error => console.error("AJAX Error:", error));
+            .catch(error =>
+                console.error("AJAX Error:", error));
     }
 
     function disableAllPopups() {
@@ -54,13 +58,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let itemsHtml = "";
         order.order_items.forEach(item => {
-            itemsHtml += `<li>${item.quantity} × ${item.name}</li>`;
+            itemsHtml += `<li class="wcrop-item">
+            <img src="${item.image_url}" alt="${item.name}" class="wcrop-product-img" />
+            <span class="wcrop-item-text">${item.quantity} × ${item.name}</span>
+            <li>`;
         });
 
         popup.innerHTML = `
             <button class="wcrop-popup-close" aria-label="Dismiss and disable alerts">&times;</button>
-            <strong>${order.customer}</strong> just placed an order!
-            <ul>${itemsHtml}</ul>
+            <div class="wcrop-popup-header"><strong>${order.customer}</strong> just placed an order!</div>
+
+            <ul class="wcrop-popup-items">${itemsHtml}</ul>
             <small>${order.order_date}</small>
         `;
 
