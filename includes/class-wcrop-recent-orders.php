@@ -36,17 +36,20 @@ class WCROP_Recent_Orders
         foreach ($orders as $order) {
             if ($order->get_id() > $last_order_id) {
                 $order_items = array();
-                foreach ($order->get_items() as $order_item) {
+                foreach ($order->get_items() as $order_item_id => $order_item) {
+                    $product = $order_item->get_product();
+                    $image_id = $product->get_image_id();
                     $order_items[] = array(
                         'name' => $order_item->get_name(),
-                        'quantity' => $order_item->get_quantity()
+                        'quantity' => $order_item->get_quantity(),
+                        'image_url' => wp_get_attachment_image_url($image_id, 'thumbnail'),
                     );
                 }
                 $new_orders[] = array(
                     'id' => $order->get_id(),
                     'customer' => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
                     'order_items' => $order_items,
-                    'order_date' => $order->get_date_created()->date('Y-m-d H:i:s')
+                    'order_date' => $this->wcrop_format_date($order->get_date_created()),
                 );
             }
         }
@@ -55,6 +58,7 @@ class WCROP_Recent_Orders
 
         wc()->session->set('wcrop_orders', $new_orders);
 
+        error_log(print_r($new_orders, true));
 
         wp_send_json_success(
             array(
@@ -62,5 +66,20 @@ class WCROP_Recent_Orders
                 'last_order_id' => !empty($orders) ? $orders[0]->get_id() : $last_order_id
             )
         );
+    }
+
+    public function wcrop_format_date(object $order_date)
+    {
+
+        $date_created =  $order_date->date('Y-m-d');
+        if ($order_date) {
+            $today_str = current_time('Y-m-d');
+
+            if ($date_created === $today_str) {
+                return 'Today';
+            }
+
+            return $order_date->date('Y-m-d H:i:s');
+        }
     }
 }
