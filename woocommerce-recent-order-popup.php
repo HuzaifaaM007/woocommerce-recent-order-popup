@@ -41,3 +41,20 @@ add_action('plugins_loaded', function () {
         error_log('$WCROP-> run()');
     }
 });
+
+
+function wcrop_add_action_links(array $links){
+
+    $settings_url = admin_url('admin.php?page=wc-settings&tab=wcrop_settings');
+    $settings_link = sprintf(
+        '<a href="%s">%s</a>',
+        esc_url($settings_url),
+        __('Settings','woocommerce-recent-order-popup'),
+    );
+
+    array_unshift($links,$settings_link);
+
+    return $links;
+}
+
+add_filter('plugin_action_links_'.plugin_basename(__FILE__),'wcrop_add_action_links');
