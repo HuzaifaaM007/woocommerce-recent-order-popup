@@ -22,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 console.log(data);
+                console.log(wcrop_recent_orders.wcrop_popup_display_time);
+                console.log(wcrop_recent_orders.wcrop_popup_time_to_show);
+
+
 
                 if (!data.success) return;
 
@@ -53,8 +57,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showPopup(order) {
 
+        const scheme = wcrop_recent_orders.wcrop_color_scheme || 'light';
         const popup = document.createElement("div");
-        popup.className = "wcrop-popup";
+        const border = wcrop_recent_orders.wcrop_image_border || 'rounded';
+        popup.className = `wcrop-popup wcrop-theme-${scheme} wcrop-border-${border}`;
 
         let itemsHtml = "";
         order.order_items.forEach(item => {
@@ -78,15 +84,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.body.appendChild(popup);
 
+        const timeToShow = parseInt(wcrop_recent_orders.wcrop_popup_time_to_show, 10) || 500;
+        const displayTime = parseInt(wcrop_recent_orders.wcrop_popup_display_time, 10) || 100;
+
         setTimeout(() => {
             popup.classList.add("show");
-        }, 100);
 
-        setTimeout(() => {
-            popup.classList.remove("show");
-            setTimeout(() => popup.remove(), 500);
-        }, 5000);
+
+            setTimeout(() => {
+                popup.classList.remove("show");
+                setTimeout(() => popup.remove(), 300);
+            }, displayTime);
+        }, timeToShow);
+
+
     }
+    const fetchInterval = parseInt(wcrop_recent_orders.interval, 10) || 10000;
+    setInterval(fetchRecentOrders, fetchInterval);
 
-    setInterval(fetchRecentOrders, wcrop_recent_orders.interval);
 });
