@@ -12,9 +12,9 @@ class WCROP_Admin
         $wcrop_settings_array = array();
 
         $wcrop_settings_array[] = array(
-            'title' => __('WooCommerce Recent Order Notification', 'wcrop'),
+            'title' => __('WooCommerce Recent Order Notifications Settings', 'wcrop'),
             'type' => 'title',
-            'id' => 'wcrop_settings_title'
+            'id' => 'wcrop_notifications_settings_title'
         );
 
         $wcrop_settings_array[] = array(
@@ -25,12 +25,74 @@ class WCROP_Admin
             'id' => 'wcrop_show_popup'
         );
 
+        $wcrop_settings_array[] = array(
+            'title' => __('Set order fetching interval', 'wcrop'),
+            'desc' => __('Time to check new orders', 'wcrop'),
+            'type' => 'text',
+            'default' => '10000',
+            'id' => 'wcrop_popup_time_to_fetch_orders'
+        );
+        $wcrop_settings_array[] = array(
+            'title' => __('Gap between the Notifications popup', 'wcrop'),
+            'desc' => __('Time between the notifications', 'wcrop'),
+            'type' => 'text',
+            'default' => '1000',
+            'id' => 'wcrop_popup_time_to_show'
+        );
+
+        $wcrop_settings_array[] = array(
+            'title' => __('Time of Notification Popup display ', 'wcrop'),
+            'desc' => __('Time of notification display', 'wcrop'),
+            'type' => 'text',
+            'default' => '2000',
+            'id' => 'wcrop_popup_display_time'
+        );
 
         $wcrop_settings_array[] = array(
             'type' => 'sectionend',
-            'id' => 'wcrop_settings_end'
+            'id' => 'wcrop_notifications_settings_end'
         );
-        error_log("WCROP: wcrop_add_admin_settings() fired\n");
+
+        $wcrop_settings_array[] = array(
+            'title' => __('WooCommerce Recent Order style Settings', 'wcrop'),
+            'type' => 'title',
+            'id' => 'wcrop__theme_settings_title'
+        );
+
+        $wcrop_settings_array[] = array(
+            'title' => __('Color scheme for notifications', 'wcrop'),
+            'desc' => __('select prefer colors scheme according to the theme', 'wcrop'),
+            'type' => 'select',
+            'default' => 'light',
+            'id' => 'wcrop_color_scheme',
+            'options'  => array(
+                'light'  => __('Light (Default)', 'wcrop'),
+                'dark'   => __('Dark', 'wcrop'),
+                'blue'   => __('Ocean Blue', 'wcrop'),
+                'custom' => __('Custom Theme Colors', 'wcrop'),
+            ),
+            'desc_tip' => true,
+        );
+
+        $wcrop_settings_array[] = array(
+            'title' => __('image border for notifications', 'wcrop'),
+            'desc' => __('select prefer image border according to the theme', 'wcrop'),
+            'type' => 'select',
+            'default' => 'rounded',
+            'id' => 'wcrop_image_border',
+            'options'  => array(
+                'rounded'  => __('Rounded Border(Default)', 'wcrop'),
+                'corner'   => __('Corner Border', 'wcrop'),
+            ),
+            'desc_tip' => true,
+        );
+
+        $wcrop_settings_array[] = array(
+            'type' => 'sectionend',
+            'id' => 'wcrop_theme_settings_end'
+        );
+
+        // error_log("WCROP: wcrop_add_admin_settings() fired\n");
 
         return $wcrop_settings_array;
     }
@@ -49,6 +111,13 @@ class WCROP_Admin
     public function wcrop_display_setttings_tab_content(): void
     {
         error_log("WCROP: wcrop_display_setttings_tab_content() fired\n");
+?>
+        <div class="wcwm-settings-header" style="background:#fff; padding: 15px; border:1px solid #ccc; border-left:4px solid #25D366; margin: bottom 20px;">
+            <h2 style="margin:0 0 5px 0; "><?php _e('Recent Order Notification', 'woocommerce-recent-order-notification'); ?></h2>
+            <p style="margin:0;"><?php _e('Need assistance? Check out our <a href="#" target="_blank">Documentation</a> or submit a <a href="#" target="_blank">Support Ticket</a>.', 'woocommerce-whatsapp-message'); ?></p>
+        </div>
+<?php
+
         woocommerce_admin_fields($this->wcrop_add_admin_settings());
     }
 
