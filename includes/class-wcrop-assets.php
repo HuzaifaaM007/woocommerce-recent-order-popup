@@ -26,14 +26,21 @@ class WCROP_Assets
             'all'
         );
 
+        $color_scheme = get_option('wcrop_color_scheme', 'light');
+        $border_radius = get_option('wcrop_image_border', 'rounded');
+
         wp_localize_script(
             'wcrop_recent_orders_popup',
             'wcrop_recent_orders',
             array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('wcrop_recent_order_nonce'),
-                'interval' => 10000,
-                'last_order_id' => $this->get_last_order_id()
+                'interval' => (int)get_option('wcrop_popup_time_to_fetch_orders', false),
+                'last_order_id' => $this->get_last_order_id(),
+                'wcrop_popup_display_time' => (int)get_option('wcrop_popup_display_time', false),
+                'wcrop_popup_time_to_show' => (int)get_option('wcrop_popup_time_to_show', false),
+                'wcrop_color_scheme' => sanitize_html_class($color_scheme),
+                'wcrop_image_border' => sanitize_html_class($border_radius),
             )
         );
     }
