@@ -69,7 +69,7 @@ class WCROP_Admin
                 'light'  => __('Light (Default)', 'wcrop'),
                 'dark'   => __('Dark', 'wcrop'),
                 'blue'   => __('Ocean Blue', 'wcrop'),
-                'custom' => __('Custom Theme Colors', 'wcrop'),
+                'custom' => __('Custom Pallete', 'wcrop'),
             ),
             'desc_tip' => true,
         );
@@ -88,6 +88,24 @@ class WCROP_Admin
         );
 
         $wcrop_settings_array[] = array(
+            'title' => __('Custom Background color', 'wcrop'),
+            'desc' => __('pick the background color from the color palet according to the theme', 'wcrop'),
+            'type' => 'color',
+            'default' => '#ffffff',
+            'id' => 'wcrop_popup_bg_color',
+            'desc_tip' => true,
+        );
+
+        $wcrop_settings_array[] = array(
+            'title' => __('Custom Text color', 'wcrop'),
+            'desc' => __('pick the text color from the color palet according to the theme', 'wcrop'),
+            'type' => 'color',
+            'default' => '#222222',
+            'id' => 'wcrop_popup_text_color',
+            'desc_tip' => true,
+        );
+
+        $wcrop_settings_array[] = array(
             'type' => 'sectionend',
             'id' => 'wcrop_theme_settings_end'
         );
@@ -97,7 +115,7 @@ class WCROP_Admin
         return $wcrop_settings_array;
     }
 
-    public function wcrop_add_settings_tab($tabs): array
+    public function wcrop_add_settings_tab(array $tabs): array
     {
         error_log('WCROP: wcrop_add_settings_tab() fired');
 
@@ -116,7 +134,7 @@ class WCROP_Admin
             <h2 style="margin:0 0 5px 0; "><?php _e('Recent Order Notification', 'woocommerce-recent-order-notification'); ?></h2>
             <p style="margin:0;"><?php _e('Need assistance? Check out our <a href="#" target="_blank">Documentation</a> or submit a <a href="#" target="_blank">Support Ticket</a>.', 'woocommerce-whatsapp-message'); ?></p>
         </div>
-<?php
+        <?php
 
         woocommerce_admin_fields($this->wcrop_add_admin_settings());
     }
@@ -125,5 +143,30 @@ class WCROP_Admin
     {
         error_log("WCROP: wcrop_save_settings() fired\n");
         woocommerce_update_options($this->wcrop_add_admin_settings());
+    }
+
+    /** 
+     * action: admin_footer
+     */
+    public function wcrop_enhance_footer_colors()
+    {
+        $screen = get_current_screen();
+
+        if ($screen && strpos($screen->id, 'woocommerce') !== false) {
+        ?>
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+
+                    const colorInputs = document.getElementById('colorpicker, input[type="color"]');
+
+                    colorInputs.forEach(function(inputs) {
+                        input.addEventListener("input", function(e) {
+                            input.setAttribute("value", e.target.value);
+                        });
+                    });
+                })
+            </script>
+<?php
+        }
     }
 }
