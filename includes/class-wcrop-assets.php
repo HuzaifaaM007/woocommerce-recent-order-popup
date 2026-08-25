@@ -7,6 +7,18 @@ if (!defined('ABSPATH')) {
 class WCROP_Assets
 {
 
+    public function wcrop_enqueue_admin_scripts(): void
+    {
+
+        wp_enqueue_script(
+            'wcrop_admin',
+            WCROP_PLUGIN_URL . 'assets/admin/js/wcrop-admin.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+
     public function wcrop_enqueue_scripts(): void
     {
 
@@ -28,6 +40,8 @@ class WCROP_Assets
 
         $color_scheme = get_option('wcrop_color_scheme', 'light');
         $border_radius = get_option('wcrop_image_border', 'rounded');
+        $bg_color = get_option('wcrop_popup_bg_color', '#ffffff');
+        $text_color = get_option('wcrop_popup_text_color', '#222222');
 
         wp_localize_script(
             'wcrop_recent_orders_popup',
@@ -41,6 +55,8 @@ class WCROP_Assets
                 'wcrop_popup_time_to_show' => (int)get_option('wcrop_popup_time_to_show', false),
                 'wcrop_color_scheme' => sanitize_html_class($color_scheme),
                 'wcrop_image_border' => sanitize_html_class($border_radius),
+                'wcrop_popup_bg_color' => sanitize_hex_color($bg_color),
+                'wcrop_popup_text_color' => sanitize_hex_color($text_color),
             )
         );
     }
