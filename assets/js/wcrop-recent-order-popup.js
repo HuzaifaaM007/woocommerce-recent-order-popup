@@ -62,6 +62,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const border = wcrop_recent_orders.wcrop_image_border || 'rounded';
         popup.className = `wcrop-popup wcrop-theme-${scheme} wcrop-border-${border}`;
 
+        if (scheme === 'custom') {
+            const bgColor = wcrop_recent_orders.wcrop_popup_bg_color || '#ffffff';
+            const textColor = wcrop_recent_orders.wcrop_popup_text_color || '#222222';
+
+            popup.style.setProperty('--wcrop-bg', bgColor);
+            popup.style.setProperty('--wcrop-text', textColor);
+            popup.style.setProperty('--wcrop-sub-text', textColor);
+            popup.style.setProperty('--wcrop-hover-bg', `color-mix(in srgb, ${textColor} 8%, transparent)`);
+            popup.style.setProperty('--wcrop-border', `color-mix(in srgb, ${textColor} 15%, transparent)`);
+            popup.style.setProperty('--wcrop-text-muted', `color-mix(in srgb, ${textColor} 60%, transparent)`);
+            popup.style.setProperty('--wcrop-close-color', `color-mix(in srgb, ${textColor} 50%, transparent)`);
+        }
+
         let itemsHtml = "";
         order.order_items.forEach(item => {
             itemsHtml += `<li class="wcrop-item">
