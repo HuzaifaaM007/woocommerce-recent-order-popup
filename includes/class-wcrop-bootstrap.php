@@ -45,6 +45,7 @@ class WCROP_Bootstrap
 
 
 
+
         $this->loader->add_actions(
             'woocommerce_settings_tabs_wcrop_settings',
             $wcrop_admin,
@@ -52,9 +53,24 @@ class WCROP_Bootstrap
         );
 
         $this->loader->add_actions(
+            'admin_footer',
+            $wcrop_admin,
+            'wcrop_enhance_footer_colors'
+        );
+
+
+        $this->loader->add_actions(
             'woocommerce_update_options_wcrop_settings',
             $wcrop_admin,
             'wcrop_save_settings'
+        );
+
+        $wcrop_assets = new WCROP_Assets();
+
+        $this->loader->add_actions(
+            'admin_enqueue_scripts',
+            $wcrop_assets,
+            'wcrop_enqueue_admin_scripts'
         );
 
         error_log('define admin hooks end');
