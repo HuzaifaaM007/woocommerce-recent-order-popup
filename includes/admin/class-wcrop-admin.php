@@ -89,7 +89,7 @@ class WCROP_Admin
 
         $wcrop_settings_array[] = array(
             'title' => __('Custom Background color', 'wcrop'),
-            'desc' => __('pick the background color from the color palet according to the theme', 'wcrop'),
+            'desc' => __('pick the background color from the color palette according to the theme', 'wcrop'),
             'type' => 'color',
             'default' => '#ffffff',
             'id' => 'wcrop_popup_bg_color',
@@ -98,10 +98,19 @@ class WCROP_Admin
 
         $wcrop_settings_array[] = array(
             'title' => __('Custom Text color', 'wcrop'),
-            'desc' => __('pick the text color from the color palet according to the theme', 'wcrop'),
+            'desc' => __('pick the text color from the color palette according to the theme', 'wcrop'),
             'type' => 'color',
             'default' => '#222222',
             'id' => 'wcrop_popup_text_color',
+            'desc_tip' => true,
+        );
+
+        $wcrop_settings_array[] = array(
+            'title' => __('Custom Border color', 'wcrop'),
+            'desc' => __('pick the Border color from the color palette according to the theme', 'wcrop'),
+            'type' => 'color',
+            'default' => '#dddddd',
+            'id' => 'wcrop_popup_border_color',
             'desc_tip' => true,
         );
 
