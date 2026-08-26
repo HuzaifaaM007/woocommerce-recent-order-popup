@@ -42,6 +42,7 @@ class WCROP_Assets
         $border_radius = get_option('wcrop_image_border', 'rounded');
         $bg_color = get_option('wcrop_popup_bg_color', '#ffffff');
         $text_color = get_option('wcrop_popup_text_color', '#222222');
+        $border_color = get_option('wcrop_popup_border_color', '#dddddd');
 
         wp_localize_script(
             'wcrop_recent_orders_popup',
@@ -57,6 +58,7 @@ class WCROP_Assets
                 'wcrop_image_border' => sanitize_html_class($border_radius),
                 'wcrop_popup_bg_color' => sanitize_hex_color($bg_color),
                 'wcrop_popup_text_color' => sanitize_hex_color($text_color),
+                'wcrop_popup_border_color' => sanitize_hex_color($border_color),
             )
         );
     }
