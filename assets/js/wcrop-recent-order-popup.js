@@ -79,8 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
             popup.style.setProperty('--wcrop-sub-text', textColor);
             popup.style.setProperty('--wcrop-hover-bg', `color-mix(in srgb, ${textColor} 8%, transparent)`);
             popup.style.setProperty('--wcrop-border', borderColor);
-            popup.style.setProperty('--wcrop-text-muted', `color-mix(in srgb, ${textColor} 60%, transparent)`);
-            popup.style.setProperty('--wcrop-close-color', `color-mix(in srgb, ${textColor} 50%, transparent)`);
+            popup.style.setProperty('--wcrop-text-sub', `color-mix(in srgb, ${textColor} 90%, transparent)`);
+            popup.style.setProperty('--wcrop-text-muted', `color-mix(in srgb, ${textColor} 88%, transparent)`);
+            popup.style.setProperty('--wcrop-close-color', `color-mix(in srgb, ${textColor} 95%, transparent)`);
         }
 
         let itemsHtml = "";
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="wcrop-popup-header"><strong>${order.customer}</strong> just placed an order!</div>
 
             <ul class="wcrop-popup-items">${itemsHtml}</ul>
-            <small>${order.order_date}</small>
+            <small class="wcrop-muted-text">${order.order_date}</small>
         `;
 
         popup.querySelector(".wcrop-popup-close").addEventListener("click", () => {

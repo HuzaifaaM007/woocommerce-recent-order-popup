@@ -50,7 +50,7 @@
     --wcrop-border:#313244;
     --wcrop-text:#f8f8f2;
     --wcrop-text-sub:#cdd6f4;
-    --wcrop-text-muted:#a6adc8;
+    --wcrop-text-muted:#cdd6f4;
     --wcrop-hover-bg:#313244;
     --wcrop-close-color:#6c7086;
     --wcrop-close-hover:#f8f8f2;
@@ -171,5 +171,9 @@
 
 .wcrop-popup-close:hover {
     color: var(--wcrop-close-hover);
+}
+
+.wcrop-muted-text {
+    color: var(--wcrop-text-muted);
 }
 
